@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run API",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "env": {},
+            "args": [
+                // -- args --
+                "--mongo.database",
+                "frbook",
+                // "http://127.0.0.1:7777",
+                "--upload_bucket",
+                "testzopte",
+                "--feed_data_folder",
+                "data",
+                "--audit_folder",
+                "audit",
+                "--master_url",
+                "http://localhost:8000",
+                // -- end --
+            ]
+        }
+        // -- configs --
+        // -- end --
+    ]
+}
