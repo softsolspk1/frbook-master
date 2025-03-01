@@ -25,9 +25,11 @@ const PostStats = () => {
           </Link>
         </li>
         <li>
-          <a style={{ fontSize: "10px", color: "white", fontWeight: "bold" }}>
+        <Link
+            href={"/dashboard/resources"}
+            style={{ fontSize: "10px", color: "white", fontWeight: "bold" }}>
             {Resources}
-          </a>
+          </Link>
         </li>
         <li>
           <a style={{ fontSize: "10px", color: "white", fontWeight: "bold" }}>
