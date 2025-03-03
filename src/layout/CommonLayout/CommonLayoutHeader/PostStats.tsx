@@ -13,9 +13,11 @@ const PostStats = () => {
         }}
       >
         <li>
-          <a style={{ fontSize: "10px", color: "white", fontWeight: "bold" }}>
+        <Link
+            href={"E-learning/courses"}
+            style={{ fontSize: "10px", color: "white", fontWeight: "bold" }}>
             {About}
-          </a>
+          </Link>
         </li>
         <li>
           <Link
