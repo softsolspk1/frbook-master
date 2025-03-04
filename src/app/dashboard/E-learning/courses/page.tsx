@@ -1,37 +1,51 @@
-"use client"
+"use client";
 
-import { type FC, useEffect, useState } from "react"
-import { Container, Row, Col } from "reactstrap"
-import WithUserLayout from "@/layout/WithUserLayout"
-import type { User } from "@/layout/LayoutTypes"
-import { CourseCard } from "@/components/course-card"
-import { courses } from "@/utils/courses"
+import { FC, useEffect, useState } from "react";
+import { Container, Row, Col } from "reactstrap";
+import WithUserLayout from "@/layout/WithUserLayout";
+import { User } from "@/layout/LayoutTypes";
+import { CourseCard } from "@/components/course-card";
+import { courses } from "@/utils/courses";
+import { me } from "@/api/operations";
 
-const CoursesPage: FC<{ user: User }> = ({ user }) => {
-  const [friends, setFriends] = useState<User[]>([])
-  const [notFriends, setNotFriends] = useState<User[]>([])
-
-  const reloadAllFr = async () => {
-    var resp = await fetch(`/api/friends`)
-    if (resp.status === 200) {
-      var data = await resp.json()
-      setFriends(data)
-    } else {
-      setFriends([])
-    }
-
-    var resp2 = await fetch(`/api/notfriends`)
-    if (resp2.status === 200) {
-      var data2 = await resp2.json()
-      setNotFriends(data2)
-    } else {
-      setNotFriends([])
-    }
-  }
+const CoursesPage: FC = () => {
+  const [friends, setFriends] = useState<User[]>([]);
+  const [notFriends, setNotFriends] = useState<User[]>([]);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    reloadAllFr()
-  }, []) //Fixed: Added empty dependency array to run only once on mount
+    const fetchData = async () => {
+      var user = await me();
+      setUser(user);
+    };
+    fetchData();
+  }, []);
+
+  const reloadAllFr = async () => {
+    var resp = await fetch(`/api/friends`);
+    if (resp.status === 200) {
+      var data = await resp.json();
+      setFriends(data);
+    } else {
+      setFriends([]);
+    }
+
+    var resp2 = await fetch(`/api/notfriends`);
+    if (resp2.status === 200) {
+      var data2 = await resp.json();
+      setNotFriends(data2);
+    } else {
+      setNotFriends([]);
+    }
+  };
+
+  useEffect(() => {
+    reloadAllFr();
+  }, []);
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <WithUserLayout
@@ -68,8 +82,8 @@ const CoursesPage: FC<{ user: User }> = ({ user }) => {
         </Container>
       </div>
     </WithUserLayout>
-  )
-}
+  );
+};
 
-export default CoursesPage
+export default CoursesPage;
 

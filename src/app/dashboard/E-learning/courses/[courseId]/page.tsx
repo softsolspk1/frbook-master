@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react"
 import { Container, Row, Col } from "reactstrap"
 import WithUserLayout from "@/layout/WithUserLayout"
-import type { User } from "@/layout/LayoutTypes"
+import { User } from "@/layout/LayoutTypes"
 import { courses } from "@/utils/courses"
 import Image from "next/image"
 import Link from "next/link"
