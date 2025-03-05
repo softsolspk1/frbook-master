@@ -91,7 +91,7 @@ export const smallSideBarData: SideBarDataInterFace[] = [
   { title: "newsfeed", icon: "File", path: "/dashboard/feed" },
   { title: "Repository", icon: "Cloud", path: "/dashboard/repository" },
   { title: "Resources", icon: "Cloud", path: "/dashboard/resources" },
-  { title: "E-learning", icon: "Cloud", path: "dashboard/E-learning/courses" },
+  { title: "E-learning", icon: "Cloud", path: "" },
 ];
 export const newsFeedLayoutData = [
   { title: "style 2", navigate: "/newsfeed/style2" },

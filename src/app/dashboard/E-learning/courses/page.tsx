@@ -1,17 +1,26 @@
 "use client"
 
-import { type FC, useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { Container, Row, Col } from "reactstrap"
 import WithUserLayout from "@/layout/WithUserLayout"
 import type { User } from "@/layout/LayoutTypes"
 import { CourseCard } from "@/components/course-card"
 import { courses } from "@/utils/courses"
 
-const CoursesPage: FC<{ user: User }> = ({ user }) => {
+// Use the standard Next.js page component pattern
+export default function Page() {
   const [friends, setFriends] = useState<User[]>([])
   const [notFriends, setNotFriends] = useState<User[]>([])
 
-  const reloadAllFr = async () => {
+  // Create a default user object
+  const defaultUser: User = {
+    id: 1, // Number instead of string
+    name: "User",
+    email: "user@example.com",
+  }
+
+  // Use useCallback to prevent reloadAllFr from changing on every render
+  const reloadAllFr = useCallback(async () => {
     var resp = await fetch(`/api/friends`)
     if (resp.status === 200) {
       var data = await resp.json()
@@ -27,11 +36,11 @@ const CoursesPage: FC<{ user: User }> = ({ user }) => {
     } else {
       setNotFriends([])
     }
-  }
+  }, [])
 
   useEffect(() => {
     reloadAllFr()
-  }, []) //Fixed: Added empty dependency array to run only once on mount
+  }, [reloadAllFr])
 
   return (
     <WithUserLayout
@@ -39,7 +48,7 @@ const CoursesPage: FC<{ user: User }> = ({ user }) => {
       notfriends={notFriends}
       reloadFriends={reloadAllFr}
       loaderName="courses"
-      user={user}
+      user={defaultUser}
     >
       <div className="page-center">
         <div className="pb-2">
@@ -70,6 +79,3 @@ const CoursesPage: FC<{ user: User }> = ({ user }) => {
     </WithUserLayout>
   )
 }
-
-export default CoursesPage
-
