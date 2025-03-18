@@ -12,14 +12,14 @@ export interface SideBarDataInterFace {
   path?: string;
   title?: string;
   tooltipTittle?: string;
-  icon: "File" | "Star" | "User" | "Headphones" | "Cloud" | "Calendar" |"BookOpen"|"Star";
+  icon: "File" | "Star" | "User" | "Headphones" | "Cloud" | "Calendar" |"BookOpen"|"Star" | "Layout" | "Users" ;
 }
 
 export interface sideBarDataType {
   path: string;
   title?: string;
   tooltipTittle?: string;
-  icon: "File" | "Star" | "User" | "Headphones" | "Cloud" | "Calendar" |"BookOpen"|"Star";
+  icon: "File" | "Star" | "User" | "Headphones" | "Cloud" | "Calendar" |"BookOpen"|"Star"| "Layout" | "Users";
 }
 export interface HorizontalSidebarInterFace {
   children?: ReactNode;
