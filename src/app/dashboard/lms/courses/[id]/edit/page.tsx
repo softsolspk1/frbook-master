@@ -6,17 +6,25 @@ import WithUserLayout from "@/layout/WithUserLayout";
 import { me, getCourseById, updateCourse } from "@/api/client-operations";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from 'lucide-react';
 import type { User } from "@/layout/LayoutTypes";
 import { CourseForm } from "@/components/lms/CourseForm";
 
 interface Course {
-  id?: string;
+  id: string;
   title: string;
   description: string;
+  short_description?: string;
+  long_description?: string;
   thumbnail: string;
   duration: number;
   is_published: boolean;
+  instructor?: string;
+  level?: string;
+  prerequisites?: string[];
+  tags?: string[];
+  video_intro?: string;
+  price?: number;
 }
 
 export default function EditCoursePage() {
@@ -24,12 +32,10 @@ export default function EditCoursePage() {
   const router = useRouter();
   const id = params?.id as string;
 
-  console.log("Params Object:", params);
-  console.log("Extracted Course ID:", id);
-
   const [user, setUser] = useState<User | undefined>(undefined);
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [friends, setFriends] = useState<User[]>([]);
   const [notFriends, setNotFriends] = useState<User[]>([]);
   const [friendsLoading, setFriendsLoading] = useState(false);
@@ -50,14 +56,19 @@ export default function EditCoursePage() {
     }
   };
 
-
-  console.log("Course ID from URL Params:", id);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userData = await me();
         setUser(userData);
+        // Check if user has admin role
+        setIsAdmin(userData?.role === "admin");
+        
+        if (userData?.role !== "admin") {
+          toast.error("You don't have permission to edit courses");
+          router.push(`/dashboard/lms/courses/${id}`);
+          return;
+        }
 
         const courseData = await getCourseById(id);
         if (!courseData) throw new Error("Course not found");
@@ -72,25 +83,34 @@ export default function EditCoursePage() {
 
     fetchData();
     reloadAllFriends();
-  }, [id]);
+  }, [id, router]);
 
-  const handleUpdateCourse = async (updatedCourse: Course) => {
+  const handleSubmit = async (updatedCourse: Course) => {
     try {
-      await updateCourse(updatedCourse);
-      toast.success("Course updated successfully");
-      router.push(`/dashboard/lms/courses/${id}`);
+      const result = await updateCourse(updatedCourse);
+      
+      if (result.success) {
+        toast.success("Course updated successfully");
+        router.push(`/dashboard/lms/courses/${id}`);
+      } else {
+        toast.error(result.message || "Failed to update course");
+      }
     } catch (error) {
       console.error("Error updating course:", error);
       toast.error("Failed to update course");
     }
   };
 
+  if (!isAdmin) {
+    return null; // Don't render anything if not admin
+  }
+
   return (
     <WithUserLayout user={user} friends={friends} notfriends={notFriends} reloadFriends={reloadAllFriends} loaderName={loading ? "defaultLoader" : ""}>
       <div className="page-center">
-      <div className="container-fluid section-t-space">
-        <div className="page-content">
-          <div className="content-center content-full w-100">
+        <div className="container-fluid section-t-space">
+          <div className="page-content">
+            <div className="content-center content-full w-100">
               <div className="row mb-4">
                 <div className="col-12">
                   <Link href={`/dashboard/lms/courses/${id}`}>
@@ -109,11 +129,13 @@ export default function EditCoursePage() {
                 </div>
               </div>
 
-              <div className="row">
-                <div className="col-12">
-                  {!loading && course && <CourseForm course={course} onSubmit={handleUpdateCourse} />}
+              {!loading && course && (
+                <div className="row">
+                  <div className="col-12">
+                    <CourseForm course={course} onSubmit={handleSubmit} />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

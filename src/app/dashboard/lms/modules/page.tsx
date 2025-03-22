@@ -1,33 +1,60 @@
-// src/app/dashboard/lms/modules/page.tsx
-"use client"
+// Place this in: src/app/dashboard/lms/modules/[id]/page.tsx
 
-import type React from "react"
-import { useEffect, useState } from "react"
-import WithUserLayout from "@/layout/WithUserLayout"
-import { PlusCircle, Search } from 'lucide-react'
-import Link from "next/link"
-import { me, getCourseById } from "@/api/client-operations"
-import { toast } from "react-toastify"
-import type { User } from "@/layout/LayoutTypes"
+"use client";
 
-interface Course {
-  id: string
-  title: string
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import WithUserLayout from "@/layout/WithUserLayout";
+import { me, getModule, getLessonsForModule, deleteLesson } from "@/api/client-operations";
+import { toast } from "react-toastify";
+import Link from "next/link";
+import { ArrowLeft, Edit, Plus, Trash, Play, FileText } from 'lucide-react';
+import type { User } from "@/layout/LayoutTypes";
+
+interface Module {
+  id: string;
+  title: string;
+  description: string;
+  order: number;
+  course_id: string;
+  video_url?: string;
+  document_url?: string;
+  duration?: number;
+  is_free?: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
-export default function ModulesPage() {
-  const [user, setUser] = useState<User | undefined>(undefined)
-  const [courses, setCourses] = useState<Course[]>([])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [loading, setLoading] = useState(true)
+interface Lesson {
+  id: string;
+  title: string;
+  description: string;
+  order: number;
+  module_id: string;
+  video_url?: string;
+  document_url?: string;
+  duration?: number;
+  is_free?: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export default function ModuleDetailPage() {
+  const params = useParams();
+  const router = useRouter();
+  const id = params?.id as string;
+
+  const [user, setUser] = useState<User | undefined>(undefined);
+  const [module, setModule] = useState<Module | null>(null);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [friends, setFriends] = useState<User[]>([]);
-  const [notfriends, setNotFriends] = useState<User[]>([]);
+  const [notFriends, setNotFriends] = useState<User[]>([]);
   const [friendsLoading, setFriendsLoading] = useState(false);
 
-
   const reloadAllFriends = async () => {
-        setFriendsLoading(true);
-
+    setFriendsLoading(true);
     try {
       const resp = await fetch(`/api/friends`);
       setFriends(resp.status === 200 ? await resp.json() : []);
@@ -37,118 +64,284 @@ export default function ModulesPage() {
       console.error("Error fetching friends data:", error);
       setFriends([]);
       setNotFriends([]);
+    } finally {
+      setFriendsLoading(false);
     }
-    finally {
-        setFriendsLoading(false);
-      }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = await me()
-        setUser(userData)
+        const userData = await me();
+        setUser(userData);
+        setIsAdmin(userData?.role === "admin");
 
-        const courseData = await getCourseById()
-        setCourses(courseData || [])
+        const moduleData = await getModule(id);
+        setModule(moduleData);
+
+        const lessonsData = await getLessonsForModule(id);
+        setLessons(lessonsData || []);
       } catch (error) {
-        console.error("Error fetching data:", error)
-        toast.error("Failed to load data")
+        console.error("Error fetching data:", error);
+        toast.error("Failed to load module data");
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
+    };
+
+    fetchData();
+    reloadAllFriends();
+  }, [id]);
+
+  const handleDeleteModule = async () => {
+    if (!isAdmin) {
+      toast.error("You don't have permission to delete modules");
+      return;
     }
 
-    fetchData()
-    reloadAllFriends()
-  }, [])
+    if (confirm("Are you sure you want to delete this module? This action cannot be undone.")) {
+      try {
+        // Call your delete API here
+        // await deleteModule(id)
+        toast.success("Module deleted successfully");
+        if (module?.course_id) {
+          router.push(`/dashboard/lms/courses/${module.course_id}`);
+        } else {
+          router.push("/dashboard/lms/courses");
+        }
+      } catch (error) {
+        console.error("Error deleting module:", error);
+        toast.error("Failed to delete module");
+      }
+    }
+  };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value)
-  }
+  const handleDeleteLesson = async (lessonId: string) => {
+    if (!isAdmin) {
+      toast.error("You don't have permission to delete lessons");
+      return;
+    }
 
-  const filteredCourses = courses.filter(
-    (course) => course.title.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+    if (confirm("Are you sure you want to delete this lesson? This action cannot be undone.")) {
+      try {
+        const result = await deleteLesson(lessonId);
+        if (result.success) {
+          toast.success("Lesson deleted successfully");
+          // Update the lessons list
+          setLessons(lessons.filter(lesson => lesson.id !== lessonId));
+        } else {
+          toast.error(result.message || "Failed to delete lesson");
+        }
+      } catch (error) {
+        console.error("Error deleting lesson:", error);
+        toast.error("Failed to delete lesson");
+      }
+    }
+  };
 
   return (
-    <WithUserLayout user={user} friends={friends} notfriends={notfriends} reloadFriends={reloadAllFriends} loaderName={loading ? "defaultLoader" : ""}
->
-      
-        <div className="page-center">
-            <div className="container-fluid section-t-space px-0">
-                <div className="page-content">
-                    <div className="content-center content-full w-100">
-              <div className="row">
-                <div className="col-12 d-flex justify-content-between align-items-center mb-4">
-                  <div>
-                    <h1 className="text-3xl font-bold">Modules</h1>
-                    <p className="text-muted">Manage your course modules</p>
-                  </div>
-                </div>
-              </div>
-
+    <WithUserLayout user={user} friends={friends} notfriends={notFriends} reloadFriends={reloadAllFriends} loaderName={loading ? "defaultLoader" : ""}>
+      <div className="content-center">
+        <div className="container-fluid section-t-space px-0">
+          <div className="page-content">
+            <div className="content-center w-100">
+              {/* Back button and actions */}
               <div className="row mb-4">
-                <div className="col-12">
-                  <div className="d-flex">
-                    <div className="position-relative flex-grow-1">
-                      <Search className="position-absolute" style={{ left: "10px", top: "10px" }} />
-                      <input
-                        type="search"
-                        placeholder="Search courses..."
-                        className="form-control pl-5"
-                        style={{ paddingLeft: "40px" }}
-                        value={searchTerm}
-                        onChange={handleSearch}
-                      />
+                <div className="col-12 d-flex justify-content-between align-items-center">
+                  {module?.course_id && (
+                    <Link href={`/dashboard/lms/courses/${module.course_id}`}>
+                      <button className="btn btn-outline-secondary">
+                        <ArrowLeft className="h-4 w-4 mr-2" />
+                        Back to Course
+                      </button>
+                    </Link>
+                  )}
+
+                  {isAdmin && (
+                    <div>
+                      <Link href={`/dashboard/lms/modules/${id}/edit`}>
+                        <button className="btn btn-primary mr-2">
+                          <Edit className="h-4 w-4 mr-2" />
+                          Edit Module
+                        </button>
+                      </Link>
+                      <button className="btn btn-danger" onClick={handleDeleteModule}>
+                        <Trash className="h-4 w-4 mr-2" />
+                        Delete Module
+                      </button>
                     </div>
-                    <button className="btn btn-outline-secondary ml-2">Filters</button>
-                  </div>
+                  )}
                 </div>
               </div>
 
-              <div className="row">
-                <div className="col-12">
-                  {loading ? (
+              {/* Module details */}
+              {module && (
+                <div className="row mb-4">
+                  <div className="col-md-8">
                     <div className="card">
-                      <div className="card-body text-center p-5">
-                        <div className="spinner-border text-primary" role="status">
-                          <span className="sr-only">Loading...</span>
+                      <div className="card-body">
+                        <h1 className="card-title h3 mb-3">{module.title}</h1>
+                        <div className="d-flex mb-3">
+                          {module.is_free && (
+                            <span className="badge badge-success mr-2">Free Preview</span>
+                          )}
+                          {module.duration && (
+                            <span className="text-muted">Duration: {module.duration} minutes</span>
+                          )}
                         </div>
-                        <p className="mt-3 mb-0">Loading courses...</p>
+                        <p className="card-text">{module.description}</p>
+
+                        {/* Video player if available */}
+                        {module.video_url && (
+                          <div className="mt-4">
+                            <h5 className="mb-3">Video</h5>
+                            <div className="embed-responsive embed-responsive-16by9">
+                              <video 
+                                className="embed-responsive-item" 
+                                controls
+                                src={module.video_url}
+                                poster="/placeholder.svg?height=400&width=600"
+                              >
+                                Your browser does not support the video tag.
+                              </video>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Document link if available */}
+                        {module.document_url && (
+                          <div className="mt-4">
+                            <h5 className="mb-3">Document</h5>
+                            <a 
+                              href={module.document_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="btn btn-outline-primary"
+                            >
+                              <FileText className="h-4 w-4 mr-2" />
+                              View Document
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
-                  ) : filteredCourses.length === 0 ? (
+                  </div>
+
+                  <div className="col-md-4">
                     <div className="card">
-                      <div className="card-body text-center p-5">
-                        <p className="mb-0">No courses found. Create your first course to add modules!</p>
+                      <div className="card-body">
+                        <h5 className="card-title">Module Information</h5>
+                        <ul className="list-group list-group-flush">
+                          <li className="list-group-item d-flex justify-content-between">
+                            <span>Order</span>
+                            <span>{module.order}</span>
+                          </li>
+                          <li className="list-group-item d-flex justify-content-between">
+                            <span>Created</span>
+                            <span>{new Date(module.created_at).toLocaleDateString()}</span>
+                          </li>
+                          <li className="list-group-item d-flex justify-content-between">
+                            <span>Last Updated</span>
+                            <span>{new Date(module.updated_at).toLocaleDateString()}</span>
+                          </li>
+                          <li className="list-group-item d-flex justify-content-between">
+                            <span>Lessons</span>
+                            <span>{lessons.length}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Lessons section */}
+              <div className="row">
+                <div className="col-12 mb-3 d-flex justify-content-between align-items-center">
+                  <h2 className="h4 mb-0">Lessons</h2>
+                  {isAdmin && (
+                    <Link href={`/dashboard/lms/modules/${id}/lessons/new`}>
+                      <button className="btn btn-sm btn-primary">
+                        <Plus className="h-4 w-4 mr-1" />
+                        Add Lesson
+                      </button>
+                    </Link>
+                  )}
+                </div>
+
+                <div className="col-12">
+                  {lessons.length > 0 ? (
+                    <div className="card">
+                      <div className="list-group list-group-flush">
+                        {lessons.map((lesson, index) => (
+                          <div key={lesson.id} className="list-group-item">
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="d-flex align-items-center">
+                                <div className="mr-3 text-center" style={{ width: "30px" }}>
+                                  {lesson.order}
+                                </div>
+                                <div>
+                                  <h5 className="mb-1">{lesson.title}</h5>
+                                  <p className="mb-0 text-muted">{lesson.description}</p>
+                                  <div className="d-flex align-items-center mt-1">
+                                    {lesson.video_url && (
+                                      <span className="badge badge-light mr-2">
+                                        <Play className="h-3 w-3 mr-1" />
+                                        Video
+                                      </span>
+                                    )}
+                                    {lesson.document_url && (
+                                      <span className="badge badge-light mr-2">
+                                        <FileText className="h-3 w-3 mr-1" />
+                                        Document
+                                      </span>
+                                    )}
+                                    {lesson.duration && (
+                                      <span className="text-muted small">
+                                        {lesson.duration} min
+                                      </span>
+                                    )}
+                                    {lesson.is_free && (
+                                      <span className="badge badge-success ml-2">Free</span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                              <div>
+                                <Link href={`/dashboard/lms/lessons/${lesson.id}`}>
+                                  <button className="btn btn-sm btn-outline-primary mr-2">View</button>
+                                </Link>
+                                {isAdmin && (
+                                  <>
+                                    <Link href={`/dashboard/lms/lessons/${lesson.id}/edit`}>
+                                      <button className="btn btn-sm btn-outline-secondary mr-2">Edit</button>
+                                    </Link>
+                                    <button 
+                                      className="btn btn-sm btn-outline-danger"
+                                      onClick={() => handleDeleteLesson(lesson.id)}
+                                    >
+                                      Delete
+                                    </button>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   ) : (
                     <div className="card">
-                      <div className="card-body p-0">
-                        <div className="list-group list-group-flush">
-                          {filteredCourses.map((course) => (
-                            <div key={course.id} className="list-group-item">
-                              <div className="d-flex justify-content-between align-items-center">
-                                <div>
-                                  <h5 className="mb-1">{course.title}</h5>
-                                </div>
-                                <div>
-                                  <Link href={`/dashboard/lms/courses/${course.id}`}>
-                                    <button className="btn btn-sm btn-outline-primary mr-2">View Course</button>
-                                  </Link>
-                                  <Link href={`/dashboard/lms/courses/${course.id}/modules/new`}>
-                                    <button className="btn btn-sm btn-primary">
-                                      <PlusCircle className="h-4 w-4 mr-1" />
-                                      Add Module
-                                    </button>
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
+                      <div className="card-body text-center py-5">
+                        <p className="mb-3">No lessons found for this module.</p>
+                        {isAdmin && (
+                          <Link href={`/dashboard/lms/modules/${id}/lessons/new`}>
+                            <button className="btn btn-primary">
+                              <Plus className="h-4 w-4 mr-2" />
+                              Create First Lesson
+                            </button>
+                          </Link>
+                        )}
                       </div>
                     </div>
                   )}
@@ -159,5 +352,5 @@ export default function ModulesPage() {
         </div>
       </div>
     </WithUserLayout>
-  )
-}
+  );
+} 

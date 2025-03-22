@@ -2,20 +2,29 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Pencil, Eye, Trash } from "lucide-react"
+import { Pencil, Eye, Trash } from 'lucide-react'
 import { toast } from "react-toastify"
 import { getCourses, deleteCourse } from "@/api/client-operations"
+import { me } from "@/api/client-operations"
 
 // Define types
 interface Course {
-  id: string
-  title: string
-  description: string
-  thumbnail: string
-  duration: number
-  is_published: boolean
-  created_at: string
-  updated_at: string
+  id?: string;
+  title: string;
+  description: string;
+  short_description?: string;
+  long_description?: string;
+  thumbnail: string;
+  duration: number;
+  is_published: boolean;
+  instructor?: string;
+  level?: string;
+  prerequisites?: string[];
+  tags?: string[];
+  video_intro?: string;
+  price?: number;
+  created_at?: string;
+  updated_at?: string;
 }
 
 interface CourseTableProps {
@@ -26,11 +35,15 @@ export function CourseTable({ searchTerm = "" }: CourseTableProps) {
   const [courses, setCourses] = useState<Course[]>([])
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
+  const [isAdmin, setIsAdmin] = useState(false)
 
   // Fetch courses on component mount
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchData = async () => {
       try {
+        const userData = await me();
+        setIsAdmin(userData?.role === "admin");
+        
         const data = await getCourses()
         setCourses(data || [])
         setFilteredCourses(data || [])
@@ -42,7 +55,7 @@ export function CourseTable({ searchTerm = "" }: CourseTableProps) {
       }
     }
 
-    fetchCourses()
+    fetchData()
   }, [])
 
   // Filter courses when searchTerm changes
@@ -61,6 +74,11 @@ export function CourseTable({ searchTerm = "" }: CourseTableProps) {
   }, [searchTerm, courses])
 
   const handleDelete = async (id: string) => {
+    if (!isAdmin) {
+      toast.error("You don't have permission to delete courses");
+      return;
+    }
+    
     if (confirm("Are you sure you want to delete this course? This action cannot be undone.")) {
       try {
         const result = await deleteCourse(id)
@@ -133,7 +151,7 @@ export function CourseTable({ searchTerm = "" }: CourseTableProps) {
                       {course.is_published ? "Published" : "Draft"}
                     </span>
                   </td>
-                  <td>{new Date(course.updated_at).toLocaleDateString()}</td>
+                  <td>{course.updated_at ? new Date(course.updated_at).toLocaleDateString() : "N/A"}</td>
                   <td className="text-right">
                     <div className="d-flex justify-content-end">
                       <Link href={`/dashboard/lms/courses/${course.id}`}>
@@ -141,14 +159,18 @@ export function CourseTable({ searchTerm = "" }: CourseTableProps) {
                           <Eye className="h-4 w-4" />
                         </button>
                       </Link>
-                      <Link href={`/dashboard/lms/courses/${course.id}/edit`}>
-                        <button className="btn btn-sm btn-outline-secondary mr-2">
-                          <Pencil className="h-4 w-4" />
-                        </button>
-                      </Link>
-                      <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(course.id)}>
-                        <Trash className="h-4 w-4" />
-                      </button>
+                      {isAdmin && (
+                        <>
+                          <Link href={`/dashboard/lms/courses/${course.id}/edit`}>
+                            <button className="btn btn-sm btn-outline-secondary mr-2">
+                              <Pencil className="h-4 w-4" />
+                            </button>
+                          </Link>
+                          <button className="btn btn-sm btn-outline-danger" onClick={() => course.id && handleDelete(course.id)}>
+                            <Trash className="h-4 w-4" />
+                          </button>
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -160,4 +182,3 @@ export function CourseTable({ searchTerm = "" }: CourseTableProps) {
     </div>
   )
 }
-
