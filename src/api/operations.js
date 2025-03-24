@@ -2,7 +2,7 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation";
 
-export const login = async (email, password) => {
+export const    login = async (email, password) => {
     console.log(process.env.API_BASE);
     const res = await fetch(process.env.API_BASE + '/login', {
         method: 'POST',
