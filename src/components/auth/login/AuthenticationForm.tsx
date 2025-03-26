@@ -23,23 +23,35 @@ const AuthenticationForm: React.FC = () => {
     password: "",
   });
   const { email, password } = formValues;
+
   const handleUserValue = (event: ChangeEvent<HTMLInputElement>) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
   };
-  const formSubmitHandle = async () => {
-    const resp = await fetch(`/api/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
 
-    if (resp.status === 200) {
-      router.replace("/mid");
+  const formSubmitHandle = async () => {
+    // Replace with your specific admin credentials
+    const validEmail = "admin@respire.com";
+    const validPassword = "admin123";
+
+    if (email === validEmail && password === validPassword) {
+      Cookies.set("adminEmail", email, { path: "/" });
+      Cookies.set("adminPassword", password, { path: "/" });
+      router.replace("/admin"); // Redirect to admin dashboard
     } else {
-      const message = await resp.json();
-      toast.error(message);
+      const resp = await fetch(`/api/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (resp.status === 200) {
+        router.replace("/dashboard/feed"); // Redirect non-admin users
+      } else {
+        const message = await resp.json();
+        toast.error(message);
+      }
     }
   };
 
