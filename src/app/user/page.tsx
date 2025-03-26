@@ -31,7 +31,7 @@ export default function HomePage() {
           </div>
           <div className="flex-1">
             <Image
-              src="/placeholder.svg?height=400&width=600"
+              src="/assets/images/Student_Learning.webp"
               alt="Students learning online"
               width={600}
               height={400}
@@ -49,14 +49,14 @@ export default function HomePage() {
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex flex-col items-center text-center">
                 <BookOpen className="h-12 w-12 text-blue-600" />
-                <h3 className="mt-4 text-3xl font-bold">200+</h3>
+                <h3 className="mt-4 text-3xl font-bold">5+</h3>
                 <p className="text-gray-600">Courses Available</p>
               </div>
             </div>
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex flex-col items-center text-center">
                 <Users className="h-12 w-12 text-blue-600" />
-                <h3 className="mt-4 text-3xl font-bold">15,000+</h3>
+                <h3 className="mt-4 text-3xl font-bold">3+</h3>
                 <p className="text-gray-600">Active Students</p>
               </div>
             </div>

@@ -15,7 +15,7 @@ export default function AdminDashboard() {
           </CardHeader>
 
           <CardContent>
-            <div className="text-2xl font-bold">12</div>
+            <div className="text-2xl font-bold">5</div>
             <p className="text-xs text-muted-foreground">+2 from last month</p>
           </CardContent>
         </Card>
@@ -25,7 +25,7 @@ export default function AdminDashboard() {
             <GraduationCap className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">245</div>
+            <div className="text-2xl font-bold">5</div>
             <p className="text-xs text-muted-foreground">+18 from last month</p>
           </CardContent>
         </Card>
@@ -35,7 +35,7 @@ export default function AdminDashboard() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">5</div>
+            <div className="text-2xl font-bold">3</div>
             <p className="text-xs text-muted-foreground">+1 from last month</p>
           </CardContent>
         </Card>
