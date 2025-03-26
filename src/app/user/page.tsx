@@ -153,7 +153,7 @@ export default function HomePage() {
             <div className="bg-white rounded-lg shadow overflow-hidden">
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  src="assets/images/Python-for-Data-Science-illustration.jpg"
+                  src="/assets/images/Python-for-Data-Science-illustration.jpg"
                   alt="Business Analytics"
                   width={400}
                   height={220}
