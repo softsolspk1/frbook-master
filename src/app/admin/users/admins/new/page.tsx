@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BasicInfoForm } from "@/components/admin/users/basic-info-form"
-import { LoginCredentialsForm } from "@/components/admin/users/login-credentials-form"
+// import { LoginCredentialsForm } from "@/components/admin/users/login-credentials-form"
 import { SocialInfoForm } from "@/components/admin/users/social-info-form"
 import { FinishStep } from "@/components/admin/users/finish-step"
 
@@ -68,7 +68,7 @@ export default function AddNewAdminPage() {
             </TabsContent>
 
             <TabsContent value="login-credentials">
-              <LoginCredentialsForm />
+              {/* <LoginCredentialsForm /> */}
             </TabsContent>
 
             <TabsContent value="social-info">

@@ -103,7 +103,7 @@ const NewsFeedStyle10: FC<ArticleArray> = ({ currA, user }) => {
                   <Col md="12 pt-8 pb-4">
                     <div className="flex justify-between items-center bg-white rounded-lg p-4 shadow-md font-bold">
                       <span className="text-gray-700 text-lg">Attached Pdf</span>
-                      <button className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600"
+                      <button className="bg-blue-500 text-white rounded px-4 py-2 hover:"
                         onClick={() => {
                           // open pdf in new tab
                           window.open(process.env.NEXT_PUBLIC_API_BASE + "/assets/" + currA.pdf, "_blank");
