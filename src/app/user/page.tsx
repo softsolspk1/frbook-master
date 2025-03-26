@@ -16,7 +16,7 @@ export default function HomePage() {
               Access high-quality courses taught by industry experts and take your skills to the next level.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center md:justify-start">
-              <Link href="/user/user/courses">
+              <Link href="/user/courses">
                 <button className="bg-blue-600 text-white px-4 py-2 rounded flex items-center justify-center w-full sm:w-auto">
                   Explore Courses
                   <ArrowRight className="ml-2 h-4 w-4" />
