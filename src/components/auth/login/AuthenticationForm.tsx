@@ -36,21 +36,25 @@ const AuthenticationForm: React.FC = () => {
     if (email === validEmail && password === validPassword) {
       Cookies.set("adminEmail", email, { path: "/" });
       Cookies.set("adminPassword", password, { path: "/" });
-      router.replace("/admin"); // Redirect to admin dashboard
+      router.push("/admin"); // Redirect to admin dashboard
     } else {
-      const resp = await fetch(`/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      try {
+        const resp = await fetch(`/api/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
 
-      if (resp.status === 200) {
-        router.replace("/dashboard/feed"); // Redirect non-admin users
-      } else {
-        const message = await resp.json();
-        toast.error(message);
+        if (resp.status === 200) {
+          router.push("/dashboard/feed"); // Redirect non-admin users
+        } else {
+          const message = await resp.json();
+          toast.error(message.error || "Invalid credentials");
+        }
+      } catch (error) {
+        toast.error("An error occurred. Please try again.");
       }
     }
   };
