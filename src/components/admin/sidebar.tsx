@@ -74,7 +74,7 @@ export function Sidebar() {
               </NavSubGroup>
             </NavGroup>
 
-            <Link
+            {/* <Link
               href="/admin/settings"
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
@@ -85,7 +85,7 @@ export function Sidebar() {
             >
               <Settings className="h-4 w-4" />
               Settings
-            </Link>
+            </Link> */}
           </nav>
         </div>
       </div>

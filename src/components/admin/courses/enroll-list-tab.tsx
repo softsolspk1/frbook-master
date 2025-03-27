@@ -12,7 +12,7 @@ const enrolledStudents = [
     username: "johndoe",
     email: "john@example.com",
     enrollmentDate: "2023-05-15",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage1.jpeg",
   },
   {
     id: "2",
@@ -20,7 +20,7 @@ const enrolledStudents = [
     username: "janesmith",
     email: "jane@example.com",
     enrollmentDate: "2023-06-02",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage2.jpeg",
   },
   {
     id: "3",
@@ -28,15 +28,15 @@ const enrolledStudents = [
     username: "robertj",
     email: "robert@example.com",
     enrollmentDate: "2023-06-10",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage3.jpeg",
   },
   {
     id: "4",
-    name: "Emily Davis",
+    name: "David",
     username: "emilyd",
     email: "emily@example.com",
     enrollmentDate: "2023-06-18",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage4.jpeg",
   },
   {
     id: "5",
@@ -44,7 +44,7 @@ const enrolledStudents = [
     username: "michaelw",
     email: "michael@example.com",
     enrollmentDate: "2023-07-05",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage5.jpeg",
   },
 ]
 

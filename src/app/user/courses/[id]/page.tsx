@@ -17,7 +17,7 @@ const courseDetails = {
   title: "Introduction to Web Development",
   description:
     "Learn the fundamentals of web development including HTML, CSS, and JavaScript. This comprehensive course covers everything you need to know to get started with web development. From basic HTML and CSS to advanced JavaScript concepts, you'll learn how to build responsive and interactive websites from scratch.",
-  image: "/placeholder.svg?height=400&width=800",
+  image: "/assets/images/WebDevelopment.jpg",
   category: "Development",
   level: "Beginner",
   rating: 4.8,
@@ -26,7 +26,7 @@ const courseDetails = {
   instructor: {
     name: "John Doe",
     bio: "Senior Web Developer with 10+ years of experience. John has worked with major tech companies and has taught over 50,000 students online.",
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar: "/assets/images/pimage1.jpeg",
   },
   price: 49.99,
   duration: "10 hours",
@@ -49,6 +49,8 @@ const courseDetails = {
           title: "Introduction to the Course",
           duration: "5:20",
           type: "video",
+          url: "/videos/video1.mp4",
+
         },
         {
           id: "lesson-1-2",
@@ -77,8 +79,10 @@ const courseDetails = {
         {
           id: "lesson-2-1",
           title: "HTML Document Structure",
-          duration: "14:20",
+          duration: "22:45",
           type: "video",
+          url: "/videos/video2.mp4",
+
         },
         {
           id: "lesson-2-2",

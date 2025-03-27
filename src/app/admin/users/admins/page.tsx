@@ -12,21 +12,21 @@ const admins = [
     name: "John Doe",
     email: "john@example.com",
     phone: "+1 (555) 123-4567",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage1.jpeg",
   },
   {
     id: "2",
     name: "Jane Smith",
     email: "jane@example.com",
     phone: "+1 (555) 987-6543",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage2.jpeg",
   },
   {
     id: "3",
     name: "Robert Johnson",
     email: "robert@example.com",
     phone: "+1 (555) 456-7890",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage3.jpeg",
   },
 ]
 

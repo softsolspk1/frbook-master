@@ -12,7 +12,7 @@ const students = [
     name: "John Doe",
     email: "john@example.com",
     phone: "+1 (555) 123-4567",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage1.jpeg",
     enrolledCourses: 3,
   },
   {
@@ -20,7 +20,7 @@ const students = [
     name: "Jane Smith",
     email: "jane@example.com",
     phone: "+1 (555) 987-6543",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage2.jpeg",
     enrolledCourses: 2,
   },
   {
@@ -28,7 +28,7 @@ const students = [
     name: "Robert Johnson",
     email: "robert@example.com",
     phone: "+1 (555) 456-7890",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage3.jpeg",
     enrolledCourses: 1,
   },
   {
@@ -36,7 +36,7 @@ const students = [
     name: "Emily Davis",
     email: "emily@example.com",
     phone: "+1 (555) 234-5678",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage4.jpeg",
     enrolledCourses: 4,
   },
   {
@@ -44,7 +44,7 @@ const students = [
     name: "Michael Wilson",
     email: "michael@example.com",
     phone: "+1 (555) 876-5432",
-    photo: "/placeholder.svg?height=40&width=40",
+    photo: "/assets/images/pimage5.jpeg",
     enrolledCourses: 2,
   },
 ]

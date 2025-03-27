@@ -9,9 +9,9 @@ const testimonials = [
     id: "1",
     content:
       "The courses on this platform have been instrumental in advancing my career. The instructors are knowledgeable and the content is up-to-date with industry standards.",
-    name: "Sarah Johnson",
+    name: "John Doe",
     title: "Frontend Developer",
-    avatar: "/placeholder.svg?height=80&width=80",
+    avatar: "/assets/images/pimage1.jpeg",
   },
   {
     id: "2",
@@ -19,15 +19,15 @@ const testimonials = [
       "I've taken several courses here and each one has exceeded my expectations. The platform is easy to use and the course materials are comprehensive.",
     name: "Michael Chen",
     title: "Data Scientist",
-    avatar: "/placeholder.svg?height=80&width=80",
+    avatar: "/assets/images/pimage2.jpeg",
   },
   {
     id: "3",
     content:
       "As someone transitioning into tech, these courses provided me with the practical skills I needed to land my first job. Highly recommended!",
-    name: "Jessica Williams",
+    name: "David",
     title: "UX Designer",
-    avatar: "/placeholder.svg?height=80&width=80",
+    avatar: "/assets/images/pimage3.jpeg",
   },
 ]
 

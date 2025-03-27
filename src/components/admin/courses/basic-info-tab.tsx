@@ -61,10 +61,10 @@ export function BasicInfoTab({ courseId }: BasicInfoTabProps) {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-medium">Instructors</h3>
-              <Button>
+              {/* <Button>
                 <UserPlus className="mr-2 h-4 w-4" />
                 Add Instructor
-              </Button>
+              </Button> */}
             </div>
 
             <div className="rounded-md border">

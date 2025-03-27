@@ -14,7 +14,7 @@ const enrolledCourses = [
   {
     id: "1",
     title: "Introduction to Web Development",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/WebDevelopment.jpg",
     instructor: "John Doe",
     progress: 35,
     lastAccessed: "2023-07-18T14:30:00Z",
@@ -24,7 +24,7 @@ const enrolledCourses = [
   {
     id: "2",
     title: "Advanced JavaScript",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/advanceJs.jpeg",
     instructor: "Jane Smith",
     progress: 20,
     lastAccessed: "2023-07-15T10:15:00Z",
@@ -34,7 +34,7 @@ const enrolledCourses = [
   {
     id: "3",
     title: "UI/UX Design Fundamentals",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/uiux.jpeg",
     instructor: "Robert Johnson",
     progress: 65,
     lastAccessed: "2023-07-17T09:45:00Z",
@@ -48,7 +48,7 @@ const completedCourses = [
   {
     id: "4",
     title: "HTML & CSS Basics",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/htmlcss.jpeg",
     instructor: "Emily Davis",
     completedDate: "2023-06-10T00:00:00Z",
     totalLessons: 8,
@@ -57,7 +57,7 @@ const completedCourses = [
   {
     id: "5",
     title: "Responsive Web Design",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/responsive.jpeg",
     instructor: "Michael Wilson",
     completedDate: "2023-05-22T00:00:00Z",
     totalLessons: 10,

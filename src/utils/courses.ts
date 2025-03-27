@@ -24,7 +24,7 @@ export const courses: Course[] = [
     instructor: "Sarah Johnson",
     duration: "8 weeks",
     level: "Beginner",
-    image: "/assets/images/Web Development.jpg",
+    image: "/assets/images/WebDevelopment.jpg",
     learningOutcomes: [
       "Understand HTML structure and semantics",
       "Create responsive layouts with CSS",
@@ -68,7 +68,7 @@ export const courses: Course[] = [
     instructor: "Michael Chen",
     duration: "10 weeks",
     level: "Intermediate",
-    image: "/assets/images/React Masterclass.jpg",
+    image: "/assets/images/reactjs.jpeg",
     learningOutcomes: [
       "Understand React component architecture",
       "Manage state effectively with hooks",
@@ -111,7 +111,7 @@ export const courses: Course[] = [
     instructor: "Dr. Emily Rodriguez",
     duration: "12 weeks",
     level: "Advanced",
-    image: "/assets/images/Data Science Python.jpg",
+    image: "/assets/images/Python-for-Data-Science-illustration.jpg",
     learningOutcomes: [
       "Master data manipulation with Pandas",
       "Create insightful visualizations with Matplotlib and Seaborn",
@@ -154,7 +154,7 @@ export const courses: Course[] = [
     instructor: "James Wilson",
     duration: "9 weeks",
     level: "Intermediate",
-    image: "/assets/images/Mobile App Development.jpg",
+    image: "/assets/images/OIP.jpeg",
     learningOutcomes: [
       "Set up a React Native development environment",
       "Build UI components for mobile interfaces",

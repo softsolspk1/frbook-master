@@ -73,8 +73,9 @@ const courseContent = {
         {
           id: "lesson-2-1",
           title: "HTML Document Structure",
-          duration: "14:20",
+          duration: "22:45",
           type: "video",
+          url: "/videos/video2.mp4",
           completed: false,
           current: true,
         },

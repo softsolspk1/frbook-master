@@ -22,7 +22,7 @@ const userData = {
   email: "john.doe@example.com",
   phone: "+1 (555) 123-4567",
   bio: "Frontend developer passionate about creating user-friendly interfaces and learning new technologies.",
-  avatar: "/placeholder.svg?height=200&width=200",
+  avatar: "/assets/images/pimage1.jpeg",
   location: "New York, USA",
   joinDate: "2023-01-15T00:00:00Z",
   social: {
@@ -41,7 +41,7 @@ const enrolledCourses = [
   {
     id: "1",
     title: "Introduction to Web Development",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/WebDevelopment.jpg",
     instructor: "Jane Smith",
     progress: 35,
     lastAccessed: "2023-07-18T14:30:00Z",
@@ -49,7 +49,7 @@ const enrolledCourses = [
   {
     id: "2",
     title: "Advanced JavaScript",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/advanceJs.jpeg",
     instructor: "Robert Johnson",
     progress: 20,
     lastAccessed: "2023-07-15T10:15:00Z",
@@ -57,7 +57,7 @@ const enrolledCourses = [
   {
     id: "3",
     title: "UI/UX Design Fundamentals",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/uiux.jpeg",
     instructor: "Emily Davis",
     progress: 65,
     lastAccessed: "2023-07-17T09:45:00Z",
@@ -70,13 +70,13 @@ const certificates = [
     id: "1",
     title: "HTML & CSS Basics",
     issueDate: "2023-06-10T00:00:00Z",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/htmlcss.jpeg",
   },
   {
     id: "2",
     title: "Responsive Web Design",
     issueDate: "2023-05-22T00:00:00Z",
-    image: "/placeholder.svg?height=220&width=400",
+    image: "/assets/images/responsive.jpeg",
   },
 ]
 

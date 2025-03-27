@@ -71,7 +71,7 @@ export function UserHeader() {
                 >
                   My Learning
                 </Link>
-                <Link
+                {/* <Link
                   href="/user/about"
                   className={cn(
                     "flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors",
@@ -88,7 +88,7 @@ export function UserHeader() {
                   )}
                 >
                   Contact
-                </Link>
+                </Link> */}
               </nav>
             </SheetContent>
           </Sheet>
