@@ -12,7 +12,7 @@ const LeftButtons: React.FC = () => {
   return (
     <ul className="btn-group">
       <li className="header-btn home-btn">
-        <Link className="main-link" href="/dashboard/feed">
+        <Link className="main-link" href="">
           <DynamicFeatherIcon
             iconName="Home"
             className="icon-light stroke-width-3 iw-16 ih-16"

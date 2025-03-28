@@ -93,9 +93,9 @@ export const smallSideBarData: SideBarDataInterFace[] = [
   { title: "newsfeed", icon: "File", path: "/dashboard/feed" },
   { title: "Repository", icon: "Cloud", path: "/dashboard/repository" },
   { title: "Resources", icon: "BookOpen", path: "/dashboard/resources" }, // Updated icon for Resources
-  { title: "E-learning", icon: "Star", path: "E-learning/courses" }, // Updated icon for Courses
+  // { title: "E-learning", icon: "Star", path: "E-learning/courses" }, // Updated icon for Courses
   // { title: "LMS Admin", icon: "BookOpen", path: "/admin" }, // Updated icon for Courses
-  { title: "Courses", icon: "Star", path: "/user" }, // Updated icon for Courses
+  { title: "E-learning", icon: "Star", path: "/user" }, // Updated icon for Courses
 ];
 export const newsFeedLayoutData = [
   { title: "style 2", navigate: "/newsfeed/style2" },

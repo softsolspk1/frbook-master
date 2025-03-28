@@ -14,7 +14,7 @@ const PostStats = () => {
       >
         <li>
         <Link
-            href={"E-learning/courses"}
+            href={"/user"}
             style={{ fontSize: "10px", color: "white", fontWeight: "bold" }}>
             {About}
           </Link>

@@ -17,7 +17,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center md:justify-start">
               <Link href="/user/courses">
-                <button className="bg-blue-600 text-white px-4 py-2 rounded flex items-center justify-center w-full sm:w-auto">
+                <button className="bg-[#0389C9] text-white px-4 py-2 rounded flex items-center justify-center w-full sm:w-auto">
                   Explore Courses
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
@@ -108,7 +108,7 @@ export default function HomePage() {
                 <div className="mt-4 flex items-center justify-between">
                   <span className="text-lg font-bold">$49.99</span>
                   <Link href="/user/courses/1">
-                    <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm">View Course</button>
+                    <button className="bg-[#0389C9] text-white px-3 py-1 rounded text-sm">View Course</button>
                   </Link>
                 </div>
               </div>
@@ -143,7 +143,7 @@ export default function HomePage() {
                 <div className="mt-4 flex items-center justify-between">
                   <span className="text-lg font-bold">$59.99</span>
                   <Link href="/user/courses/3">
-                    <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm">View Course</button>
+                    <button className="bg-[#0389C9] text-white px-3 py-1 rounded text-sm">View Course</button>
                   </Link>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default function HomePage() {
                 <div className="mt-4 flex items-center justify-between">
                   <span className="text-lg font-bold">$69.99</span>
                   <Link href="/user/courses/7">
-                    <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm">View Course</button>
+                    <button className="bg-[#0389C9] text-white px-3 py-1 rounded text-sm">View Course</button>
                   </Link>
                 </div>
               </div>
@@ -186,14 +186,14 @@ export default function HomePage() {
           </div>
           <div className="mt-12 text-center">
             <Link href="/user/courses">
-              <button className="bg-blue-600 text-white px-6 py-2 rounded">View All Courses</button>
+              <button className="bg-[#0389C9] text-white px-6 py-2 rounded">View All Courses</button>
             </Link>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 py-16 text-white">
+      <section className="bg-[#0389C9] py-16 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold">Ready to Start Learning?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg">

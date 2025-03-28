@@ -1,6 +1,6 @@
 export const companyNavData = [
   { navigate: "", title: "Home" },
-  { navigate: "", title: "E-Learning" },
+  { navigate: "/user", title: "E-Learning" },
   { navigate: "", title: "Repository" },
   { navigate: "", title: "Resources" },
   { navigate: "", title: "Communication" },
