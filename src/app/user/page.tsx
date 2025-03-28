@@ -205,11 +205,11 @@ export default function HomePage() {
                 Browse Courses
               </button>
             </Link>
-            <Link href="/register">
+            {/* <Link href="/register">
               <button className="border border-white text-white px-6 py-3 rounded font-medium hover:bg-blue-700 w-full sm:w-auto">
                 Sign Up Now
               </button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>
