@@ -20,7 +20,7 @@ export default function AdminLayout({
   const defaultUser: User = {
     id: 1,
     name: "Admin User",
-    email: "admin@example.com",
+    email: "admin@respire.com",
   }
 
   // Function to reload friends
