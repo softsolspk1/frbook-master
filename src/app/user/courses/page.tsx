@@ -417,7 +417,10 @@ export default function CoursesPage() {
                   </CardContent>
                   <CardFooter className="flex items-center justify-between p-4 pt-0">
                     <span className="text-lg font-bold">${course.price}</span>
-                    <Link href={`/user/courses/${course.id}`}>
+                    <Link href={
+                      // `/user/courses/${course.id}`
+                      `/dashboard/E-learning/courses/web-development`
+                      }>
                       <Button size="sm">View Course</Button>
                     </Link>
                   </CardFooter>
