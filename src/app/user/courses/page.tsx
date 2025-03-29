@@ -27,7 +27,7 @@ const courses = [
     rating: 4.8,
     reviews: 245,
     instructor: "John Doe",
-    price: 49.99,
+    price: 0, // Updated price
   },
   {
     id: "2",
@@ -39,7 +39,7 @@ const courses = [
     rating: 4.9,
     reviews: 189,
     instructor: "Jane Smith",
-    price: 69.99,
+    price: 0, // Updated price
   },
   {
     id: "3",
@@ -51,7 +51,7 @@ const courses = [
     rating: 4.7,
     reviews: 156,
     instructor: "Robert Johnson",
-    price: 59.99,
+    price: 0, // Updated price
   },
   {
     id: "4",
@@ -63,7 +63,7 @@ const courses = [
     rating: 4.9,
     reviews: 210,
     instructor: "Emily Davis",
-    price: 79.99,
+    price: 0, // Updated price
   },
   {
     id: "5",
@@ -75,7 +75,7 @@ const courses = [
     rating: 4.6,
     reviews: 178,
     instructor: "Michael Wilson",
-    price: 54.99,
+    price: 0, // Updated price
   },
   {
     id: "6",
@@ -87,7 +87,7 @@ const courses = [
     rating: 4.8,
     reviews: 192,
     instructor: "Sarah Brown",
-    price: 64.99,
+    price: 0, // Updated price
   },
   {
     id: "7",
@@ -99,7 +99,7 @@ const courses = [
     rating: 4.7,
     reviews: 165,
     instructor: "David Lee",
-    price: 69.99,
+    price: 0, // Updated price
   },
   {
     id: "8",
@@ -111,7 +111,7 @@ const courses = [
     rating: 4.9,
     reviews: 220,
     instructor: "Jennifer Taylor",
-    price: 74.99,
+    price: 0, // Updated price
   },
 ]
 

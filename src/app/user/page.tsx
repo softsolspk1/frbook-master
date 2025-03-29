@@ -106,7 +106,7 @@ export default function HomePage() {
                   Learn the fundamentals of web development including HTML, CSS, and JavaScript.
                 </p>
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="text-lg font-bold">$49.99</span>
+                  <span className="text-lg font-bold">Free</span>
                   <Link href="/user/courses/1">
                     <button className="bg-[#0389C9] text-white px-3 py-1 rounded text-sm">View Course</button>
                   </Link>
@@ -141,7 +141,7 @@ export default function HomePage() {
                   Learn the principles of user interface and user experience design.
                 </p>
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="text-lg font-bold">$59.99</span>
+                  <span className="text-lg font-bold">Free</span>
                   <Link href="/user/courses/3">
                     <button className="bg-[#0389C9] text-white px-3 py-1 rounded text-sm">View Course</button>
                   </Link>
@@ -176,7 +176,7 @@ export default function HomePage() {
                   Learn how to analyze business data and make data-driven decisions.
                 </p>
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="text-lg font-bold">$69.99</span>
+                  <span className="text-lg font-bold">Free</span>
                   <Link href="/user/courses/7">
                     <button className="bg-[#0389C9] text-white px-3 py-1 rounded text-sm">View Course</button>
                   </Link>

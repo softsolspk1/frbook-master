@@ -28,7 +28,7 @@ const courseDetails = {
     bio: "Senior Web Developer with 10+ years of experience. John has worked with major tech companies and has taught over 50,000 students online.",
     avatar: "/assets/images/pimage1.jpeg",
   },
-  price: 49.99,
+  price: 0, // Updated price
   duration: "10 hours",
   language: "English",
   lastUpdated: "June 2023",
@@ -244,8 +244,8 @@ export default function CourseDetailsPage({ params }: { params: { id: string } }
               </TabsTrigger>
               <TabsTrigger value="faqs" className="flex-1">
                 FAQs
-              </TabsTrigger>
-            </TabsList>
+                </TabsTrigger>
+              </TabsList>
 
             <TabsContent value="overview" className="mt-6">
               <div className="space-y-6">
@@ -395,7 +395,13 @@ export default function CourseDetailsPage({ params }: { params: { id: string } }
               <CardDescription>One-time payment, lifetime access</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Button className="w-full" size="lg">
+              <Button
+                className="w-full"
+                size="lg"
+                onClick={() => {
+                  window.location.href = "/dashboard/E-learning/courses/web-development";
+                }}
+              >
                 Enroll Now
               </Button>
               <p className="text-center text-sm text-muted-foreground">30-Day Money-Back Guarantee</p>

@@ -18,7 +18,7 @@ const featuredCourses = [
     rating: 4.8,
     reviews: 245,
     instructor: "John Doe",
-    price: 49.99,
+    price: 0, // Updated price
   },
   {
     id: "2",
@@ -30,7 +30,7 @@ const featuredCourses = [
     rating: 4.9,
     reviews: 189,
     instructor: "Jane Smith",
-    price: 69.99,
+    price: 0, // Updated price
   },
   {
     id: "3",
@@ -42,7 +42,7 @@ const featuredCourses = [
     rating: 4.7,
     reviews: 156,
     instructor: "Robert Johnson",
-    price: 59.99,
+    price: 0, // Updated price
   },
   {
     id: "4",
@@ -54,7 +54,7 @@ const featuredCourses = [
     rating: 4.9,
     reviews: 210,
     instructor: "Emily Davis",
-    price: 79.99,
+    price: 0, // Updated price
   },
 ]
 

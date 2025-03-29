@@ -40,8 +40,8 @@ export default function Page({ params }: PageParams) {
   // Create a default user object
   const defaultUser: User = {
     id: 1, // Number instead of string
-    name: "User",
-    email: "user@example.com",
+    name: "softsols",
+    email: "softsolspk@gmail.com",
   }
 
   // Use useCallback to prevent reloadAllFr from changing on every render
@@ -159,7 +159,10 @@ export default function Page({ params }: PageParams) {
         <div className="pb-2">
           <div className="md:flex md:items-center md:justify-between">
             <div className="min-w-0 flex-1">
-              <Link href="/dashboard/E-learning/courses" className="flex items-center text-sm mb-4 hover:underline">
+              <Link href=
+              // "/dashboard/E-learning/courses"
+              "/user/courses"
+               className="flex items-center text-sm mb-4 hover:underline">
                 <ChevronLeft className="h-4 w-4 mr-1" />
                 Back to courses
               </Link>
