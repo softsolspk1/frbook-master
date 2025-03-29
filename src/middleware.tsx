@@ -1,28 +1,72 @@
-import { cookies } from "next/headers";
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server"
+import { NextResponse } from "next/server"
+import { me } from "./api/operations"
 
 export async function middleware(request: NextRequest) {
-  const path = request.nextUrl.pathname;
+  const path = request.nextUrl.pathname
+  var token = request.cookies.get("jwt")?.value
 
-  // Restrict access to `/admin`
-  if (path.startsWith("/admin")) {
-    const adminEmail = request.cookies.get("adminEmail")?.value;
-    const adminPassword = request.cookies.get("adminPassword")?.value;
+  // Check for admin credentials in cookies (set by AuthenticationForm)
+  const adminEmail = request.cookies.get("adminEmail")?.value
+  const adminPassword = request.cookies.get("adminPassword")?.value
 
-    // Replace with your specific admin credentials
-    const validEmail = "admin@respire.com";
-    const validPassword = "admin123";
-
-    if (adminEmail !== validEmail || adminPassword !== validPassword) {
-      // Redirect to login page if credentials are invalid
-      return NextResponse.redirect(new URL("/auth/login", request.url));
-    }
+  // Allow direct access to admin route if admin credentials are present
+  if (path === "/admin" && adminEmail === "admin@respire.com" && adminPassword === "admin123") {
+    return NextResponse.next()
   }
 
-  return NextResponse.next();
+  if (path.split("/")[1] == "home") {
+    if (token) {
+      return NextResponse.redirect(new URL(`/dashboard/feed`, request.url))
+    }
+    return NextResponse.next()
+  }
+
+  if (path.split("/")[1] === "login" || path.split("/")[1] === "register") {
+    return NextResponse.next()
+  }
+
+  if (!token) {
+    if (path.split("/")[1] === "login" || path.split("/")[1] === "register") {
+      return NextResponse.next()
+    }
+
+    return NextResponse.redirect(new URL(`/login`, request.url))
+  }
+
+  var meR = await me()
+
+  if (meR) {
+    if (meR.verified == false || !meR.verified) {
+      return NextResponse.redirect(new URL(`/verification`, request.url))
+    } else {
+      if (path.split("/")[1] === "mid") {
+        return NextResponse.redirect(new URL(`/dashboard/feed`, request.url))
+      } else {
+        return NextResponse.next()
+      }
+    }
+  } else {
+    return NextResponse.redirect(new URL(`/login`, request.url))
+  }
 }
 
 export const config = {
-  matcher: ["/admin/:path*"], // Apply middleware to `/admin` and its subpaths
-};
+  matcher: [
+    "/",
+    "/home",
+    "/mid",
+    "/register",
+    "/auth/:path*",
+    "/authentication/:path*",
+    "/company/:path*",
+    "/dashboard/feed",
+    "/helpandsupport",
+    "/newsfeed/:path*",
+    "/dashboard/profile/:path*",
+    "/profile",
+    "/settings",
+    "/admin", // Added admin path to the matcher
+  ],
+}
+

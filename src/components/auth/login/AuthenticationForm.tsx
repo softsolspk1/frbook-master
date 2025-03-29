@@ -1,80 +1,61 @@
-import DynamicFeatherIcon from "@/Common/DynamicFeatherIcon";
-import {
-  EmailAddress,
-  ForgetPassword,
-  Login,
-  Password,
-  RememberMe,
-  SignUp,
-} from "../../../utils/constant";
-import Link from "next/link";
-import { ChangeEvent, useState } from "react";
-import { FormGroup, Input, Label } from "reactstrap";
-import Cookies from "js-cookie";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+"use client"
+
+import type React from "react"
+
+import DynamicFeatherIcon from "@/Common/DynamicFeatherIcon"
+import { EmailAddress, ForgetPassword, Login, Password, RememberMe, SignUp } from "../../../utils/constant"
+import Link from "next/link"
+import { type ChangeEvent, useState } from "react"
+import { FormGroup, Input, Label } from "reactstrap"
+import Cookies from "js-cookie"
+import { toast } from "react-toastify"
+import { useRouter } from "next/navigation"
 
 const AuthenticationForm: React.FC = () => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [showPassWord, setShowPassWord] = useState(false);
+  const [showPassWord, setShowPassWord] = useState(false)
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
-  });
-  const { email, password } = formValues;
-
+  })
+  const { email, password } = formValues
   const handleUserValue = (event: ChangeEvent<HTMLInputElement>) => {
-    setFormValues({ ...formValues, [event.target.name]: event.target.value });
-  };
-
+    setFormValues({ ...formValues, [event.target.name]: event.target.value })
+  }
   const formSubmitHandle = async () => {
-    // Replace with your specific admin credentials
-    const validEmail = "admin@respire.com";
-    const validPassword = "admin123";
-
-    if (email === validEmail && password === validPassword) {
-      Cookies.set("adminEmail", email, { path: "/" });
-      Cookies.set("adminPassword", password, { path: "/" });
-      router.push("/admin"); // Redirect to admin dashboard
-    } else {
-      try {
-        const resp = await fetch(`/api/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        });
-
-        if (resp.status === 200) {
-          router.push("/dashboard/feed"); // Redirect non-admin users
-        } else {
-          const message = await resp.json();
-          toast.error(message.error || "Invalid credentials");
-        }
-      } catch (error) {
-        toast.error("An error occurred. Please try again.");
-      }
+    // Check for admin credentials
+    if (email === "admin@respire.com" && password === "admin123") {
+      // Set admin cookies
+      Cookies.set("adminEmail", email, { path: "/" })
+      Cookies.set("adminPassword", password, { path: "/" })
+      // For admin, directly route to admin page
+      router.replace("/admin")
+      return
     }
-  };
+
+    const resp = await fetch(`/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+
+    if (resp.status === 200) {
+      router.replace("/mid")
+    } else {
+      const message = await resp.json()
+      toast.error(message)
+    }
+  }
 
   return (
     <form className="theme-form">
       <FormGroup>
         <Label>{EmailAddress}</Label>
-        <Input
-          type="email"
-          required
-          placeholder="Email"
-          value={email}
-          name="email"
-          onChange={handleUserValue}
-        />
-        <DynamicFeatherIcon
-          iconName="User"
-          className="input-icon iw-20 ih-20"
-        />
+        <Input type="email" required placeholder="Email" value={email} name="email" onChange={handleUserValue} />
+        <DynamicFeatherIcon iconName="User" className="input-icon iw-20 ih-20" />
       </FormGroup>
       <FormGroup>
         <Label>{Password}</Label>
@@ -93,11 +74,7 @@ const AuthenticationForm: React.FC = () => {
       </FormGroup>
       <div className="bottom-sec">
         <div className="form-check checkbox_animated">
-          <Input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
+          <Input type="checkbox" className="form-check-input" id="exampleCheck1" />
           <label className="form-check-label" htmlFor="exampleCheck1">
             {RememberMe}
           </label>
@@ -115,7 +92,8 @@ const AuthenticationForm: React.FC = () => {
         </Link>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default AuthenticationForm;
+export default AuthenticationForm
+
